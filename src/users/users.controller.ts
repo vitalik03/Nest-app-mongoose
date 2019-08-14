@@ -7,24 +7,23 @@ import { CreateUserDto } from './dto/create-user.dto';
 @Controller('users')
 export class UsersController {
     constructor(private readonly usersService: UsersService){}
-@Get()
-  getAll(): Promise<IUser[]> {
-    return this.usersService.getAll();
-  }
+    @Get()
+    getUsers(): Promise<IUser[]> {
+      return this.usersService.getUsers();
+    }
+  
+    @Post()
+    addUser(@Body() createUser: CreateUserDto): Promise<IUser> {
+      return this.usersService.addUser(createUser);
+    } 
 
-@Post()
-  create(@Body() createItem: CreateUserDto): Promise<IUser> {
-    return this.usersService.create(createItem);
-  }
+    @Delete()
+      deleteUser(@Body() createUser: CreateUserDto){
+        return this.usersService.deleteUser(createUser.name);
+      }
 
-@Put()
-  createOnPut(@Body() createItem: CreateUserDto): Promise<IUser> {
-    return this.usersService.createOnPut(createItem);
-  }
-
-@Delete()
-  Ondelete(){
-      return this.usersService.Ondelete();
-  }
-
+    @Put()
+      updateUser(@Body() user: CreateUserDto): Promise<IUser>{
+        return this.usersService.updateUser(user);
+      }
 }

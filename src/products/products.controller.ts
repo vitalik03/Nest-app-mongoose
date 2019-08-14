@@ -7,22 +7,23 @@ import { CreateProductDto } from './dto/create-product.dto';
 export class ProductsController {
     constructor(private readonly productsService: ProductsService){}
     @Get()
-      getAll(): Promise<IProduct[]> {
-        return this.productsService.getAll();
+      getProducts(): Promise<IProduct[]> {
+        return this.productsService.getProducts();
       }
     
     @Post()
-      create(@Body() createItem: CreateProductDto): Promise<IProduct> {
-        return this.productsService.create(createItem);
-      }
-    
-    @Put()
-      createOnPut(@Body() createItem: CreateProductDto): Promise<IProduct> {
-        return this.productsService.createOnPut(createItem);
-      }
-    
+      addProduct(@Body() createItem: CreateProductDto): Promise<IProduct> {
+        return this.productsService.addProduct(createItem);
+      } 
+
     @Delete()
-      Ondelete(){
-          return this.productsService.Ondelete();
+      deleteProduct(@Body() createUser: CreateProductDto){
+        return this.productsService.deleteProduct(createUser.name);
       }
+      
+    @Put()
+      updateProduct(@Body() product: CreateProductDto): Promise<IProduct>{
+        return this.productsService.updateProduct(product);
+      }
+
 }
